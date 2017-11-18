@@ -1,10 +1,13 @@
-
 document.getElementById("addItem").onclick = addingItem;
 
 function addingItem(){
 
-  var groceryItem = document.getElementById("item").value;
-  var groceryList = document.getElementById("groceryList");
+  var itemName     = document.getElementById("item").value;
+  var itemQuantity = document.getElementById("quantity").value;
+  var groceryList  = document.getElementById("groceryList");
 
-  groceryList.append(groceryItem);
+  var li = document.createElement("li");
+  var t = document.createTextNode(itemName + " " + itemQuantity);
+  li.appendChild(t);
+  groceryList.appendChild(li);
 }

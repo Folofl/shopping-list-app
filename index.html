@@ -5,8 +5,12 @@
 <head>
     <title>Amazon/GDI Hackathon: Group 7</title>
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet"/>
     <meta charset="utf-8">
+    <script
+src="https://code.jquery.com/jquery-3.2.1.min.js"
+integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -16,22 +20,78 @@
       Item Needed:
     </p>
     <input id="item">
-    <button id="addItem">add me</button>
     <p>
       Quantity:
     </p>
     <input id="quantity">
-    <button id="addQuantity">add me</button>
     <p>
       Notes:
     </p>
-    <input id="notes">
-    <button>add me</button>
+    <textarea id="notes"></textarea><br>
+    <button id="addItem">add me</button>
     <p>
       Today's List:
       <ul id="groceryList"></ul>
     </p>
 </body>
 
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+
+document.getElementById("addItem").onclick = addingItem;
+
+function editItem() {
+  alert("edit");
+}
+
+function deleteItem() {
+  $(this).parent().remove();
+}
+
+function addingItem() {
+
+  // create variable to grab the grocery item input value
+  // create variable to grab the unordered list from the html
+
+  var itemName     = document.getElementById("item").value;
+  var itemQuantity = document.getElementById("quantity").value;
+  var groceryList  = document.getElementById("groceryList");
+
+  // create a list item node
+  var listItem     = document.createElement("li");
+  var nameDiv      = document.createElement("div");
+  var quantityDiv  = document.createElement("div");
+  var editButton   = document.createElement("button");
+  var deleteButton = document.createElement("button");
+
+  // Name
+  nameDiv.innerHTML = itemName;
+  nameDiv.setAttribute("id", "nameDiv");
+
+  // Quantity
+  quantityDiv.innerHTML = itemQuantity;
+  quantityDiv.setAttribute("id", "quanityDiv");
+
+  // Edit button
+  editButton.innerHTML = "Edit";
+  editButton.setAttribute("id", "editButton");
+  editButton.onclick = editItem;
+
+  // Delete Button
+  deleteButton.innerHTML = "Delete";
+  deleteButton.setAttribute("id", "deleteButton");
+  deleteButton.onclick = deleteItem;
+
+  // Append the grocery list item to the unordered list
+  listItem.appendChild(nameDiv);
+  listItem.appendChild(quantityDiv);
+  listItem.appendChild(editButton);
+  listItem.appendChild(deleteButton);
+  groceryList.appendChild(listItem);
+
+  // Clear input value below for the user!
+  document.getElementById("item").value     = "";
+  document.getElementById("quantity").value = "";
+}
+
+</script>
 </html>
