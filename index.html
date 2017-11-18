@@ -3,8 +3,9 @@
 <html lang="en">
 
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Noto+Sans" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <title>Amazon/GDI Hackathon: Group 7</title>
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link href="css/style.css" rel="stylesheet"/>
@@ -19,6 +20,7 @@ crossorigin="anonymous"></script>
   <div class="main-app">
     <h1>ShopMe! App</h1>
     <p>Add an item to your shopping list below!</p>
+
     <p>
       Item Needed:
     </p>
@@ -26,11 +28,11 @@ crossorigin="anonymous"></script>
     <p>
       Quantity:
     </p>
-    <input id="quantity">
-    <p>
+    <input id="quantity"><br>
+    <!-- <p>
       Notes:
     </p>
-    <textarea id="notes"></textarea><br>
+    <textarea id="notes"></textarea><br> -->
     <button id="addItem">Add Me</button>
 
     <p class="today-list">
@@ -43,31 +45,34 @@ crossorigin="anonymous"></script>
 <!-- CSS BELOW -->
 <style>
 
-html{
-  font-family:'Gloria Hallelujah', cursive;
-}
 body{
   width:45%;
   margin:auto;
-  color:white;
+  color:black;
+  font-family: 'Questrial', sans-serif;
 }
 .main-app{
-  background-color:#F5CBA7;
-  padding:4%;
+  background-color:#5DADE2;
+  padding:7%;
   border-radius:10px;
   border:solid 1px white;
   padding-bottom:50px;
 }
 h1{
   font-size:48px;
+  font-family:'Gloria Hallelujah', cursive;
 }
 .today-list{
   font-size:30px;
+  font-family: 'Gloria Hallelujah', cursive;
 }
 button{
   font-family: 'Questrial', sans-serif;
   font-size: 20px;
   border-radius:5px;
+  margin-top:15px;
+  width:120px;
+  clear:both;
 }
 #groceryList{
   list-style:none;
@@ -82,9 +87,6 @@ p{
   width:100px;
   float:left;
 }
-#editButton,#deleteButton{
-  width:75px;
-}
 
 </style>
 
@@ -94,7 +96,7 @@ p{
 document.getElementById("addItem").onclick = addingItem;
 
 function editItem() {
-  // get parent
+  // get parent, which is the list item
   var listItem = $(this).parent();
   // get access to nameDiv
   var nameDiv = listItem.find("#nameDiv");
@@ -106,7 +108,7 @@ function editItem() {
   nameInput.setAttribute("name", itemName);
   nameInput.setAttribute("value", itemName);
   // delete nameDiv and replace it with input field
-  listItem.find("#nameDiv").replaceWith(nameInput);
+  listItem.find("#nameDiv").replaceWith(nameInt);
 
   // create the save button
   var saveButton = document.createElement("button");
@@ -115,11 +117,6 @@ function editItem() {
   saveButton.onclick = saveItem;
 
   $(this).replaceWith(saveButton);
-
-  // // replace name of this button with "Save"
-  // $(this).text("Save");
-  // // replace onclick of this button with saveItem
-  // $(this).click(saveItem);
 }
 
 function saveItem() {
@@ -130,7 +127,7 @@ function saveItem() {
   var nameInput = listItem.find("#nameInput");
   var itemName = nameInput.val();
   //var itemName = nameInput.attr("name");
-  console.log(itemName);
+  // console.log(itemName);
   // transform them back into div
   var nameDiv = document.createElement("div");
   nameDiv.setAttribute("id", "nameDiv");
@@ -179,7 +176,7 @@ function addingItem() {
   editButton.onclick = editItem;
 
   // Delete Button
-  deleteButton.innerHTML = "Delete";
+  deleteButton.innerHTML = "<i class='fa fa-bomb' aria-hidden='true'></i>";
   deleteButton.setAttribute("id", "deleteButton");
   deleteButton.onclick = deleteItem;
 
