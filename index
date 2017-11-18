@@ -31,7 +31,7 @@ crossorigin="anonymous"></script>
       Notes:
     </p>
     <textarea id="notes"></textarea><br>
-    <button id="addItem">Add Me</button>
+    <button id="addItem">add me</button>
 
     <p class="today-list">
       Today's List:
@@ -56,7 +56,6 @@ body{
   padding:4%;
   border-radius:10px;
   border:solid 1px white;
-  padding-bottom:50px;
 }
 h1{
   font-size:48px;
@@ -67,7 +66,6 @@ h1{
 button{
   font-family: 'Questrial', sans-serif;
   font-size: 20px;
-  border-radius:5px;
 }
 #groceryList{
   list-style:none;
@@ -77,13 +75,6 @@ ul li{
 }
 p{
   font-size:25px;
-}
-#nameDiv{
-  width:100px;
-  float:left;
-}
-#editButton,#deleteButton{
-  width:75px;
 }
 
 </style>
@@ -100,47 +91,35 @@ function editItem() {
   var nameDiv = listItem.find("#nameDiv");
   // backup the value
   var itemName = nameDiv.attr("name");
+  // delete nameDiv and replace it with input field
   // put backed up value into the new input field
   var nameInput = document.createElement("input");
   nameInput.setAttribute("id", "nameInput");
   nameInput.setAttribute("name", itemName);
   nameInput.setAttribute("value", itemName);
-  // delete nameDiv and replace it with input field
   listItem.find("#nameDiv").replaceWith(nameInput);
+  // replace name of this button with "Save"
+  //$(this).innerHTML = "Save";
+  $(this).text("Save");
+  // replace onclick of this button with saveItem
 
-  // create the save button
-  var saveButton = document.createElement("button");
-  saveButton.innerHTML = "Save";
-  saveButton.setAttribute("id", "saveButton");
-  saveButton.onclick = saveItem;
-
-  $(this).replaceWith(saveButton);
-
-  // // replace name of this button with "Save"
-  // $(this).text("Save");
-  // // replace onclick of this button with saveItem
-  // $(this).click(saveItem);
+  // $(this).attr("onclick", saveItem);
+  $(this).addEventListener("click", saveItem);
 }
 
 function saveItem() {
   // get parent
+  //alert("saveItem");
   console.log("in save");
   var listItem = $(this).parent();
   // get access to inputs
   var nameInput = listItem.find("#nameInput");
-  var itemName = nameInput.val();
-  //var itemName = nameInput.attr("name");
-  console.log(itemName);
+  console.log(nameInput.attr("name"));
   // transform them back into div
-  var nameDiv = document.createElement("div");
-  nameDiv.setAttribute("id", "nameDiv");
-  nameDiv.setAttribute("name", itemName);
-  nameDiv.innerHTML = itemName;
-  listItem.find("#nameInput").replaceWith(nameDiv);
   // change name of this button to "Edit"
-  $(this).text("Edit");
+  //$(this).html("Edit");
   // replace onclick of this button with editItem
-  $(this).click(editItem);
+  // $(this).onclick = editItem;
 }
 
 function deleteItem() {
@@ -162,7 +141,7 @@ function addingItem() {
   var quantityDiv  = document.createElement("div");
   var editButton   = document.createElement("button");
   var deleteButton = document.createElement("button");
-  var checkBox     = document.createElement("input");
+
 
   // Name
   nameDiv.innerHTML = itemName;
@@ -182,8 +161,6 @@ function addingItem() {
   deleteButton.innerHTML = "Delete";
   deleteButton.setAttribute("id", "deleteButton");
   deleteButton.onclick = deleteItem;
-
-  // Checkbox button
 
   // Append the grocery list item to the unordered list
   listItem.appendChild(nameDiv);
